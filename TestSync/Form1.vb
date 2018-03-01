@@ -13,7 +13,7 @@
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim objetoSincronizacion As New Sincronizacion 'ddf
+        Dim objetoSincronizacion As New Sincronizacion
         Dim intervaloTimer As Double
         intervaloTimer = TiempoEjecucionSincronizador(objetoXML.ObtenerValorXML("TiempoEjecucionServicioSincronizacion"))
         objetoSincronizacion.IniciarProcesoSincronizacion()
