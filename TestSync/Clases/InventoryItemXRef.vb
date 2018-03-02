@@ -1,24 +1,24 @@
-﻿Public Class InventoryPricing 'Administra el proceso de sincronizacion de la tabla InventoryPricing en MySQL
+﻿Public Class InventoryItemXRef 'Administra el proceso de sincronizacion de la tabla InventoryItemXRef en MySQL
     Private claseSQL As String
     Private objetoAccessHelper As New AccessSqlHelper
     Private objetoMySqlHekper As New MySqlHelper
 
-    Private objetoMySqlInventoryPricing As New MySqlInventoryPricing
+    Private objetoMySqlInventoryItemsXRef As New MySqlInventoryItemsXRef
     Private fechaLastUpDate As DateTime
     Private fechaCortaLastUpDate As String
     Private objectLibrary As New Library
     Private objetoXML As New ManejoXML
     Public Sub New()
     End Sub
-    Public Sub SincronizarInventoryPricing()
+    Public Sub SincronizarInventoryItemXRef()
         Dim readerDatos As OleDb.OleDbDataReader
-        Dim readerInventoryPrincingAccess As OleDb.OleDbDataReader
+        Dim readerInventoryItemsXRefAccess As OleDb.OleDbDataReader
         Dim totalRegistrosActualizados As Integer = 0
         Dim totalRegistrosNuevos As Integer = 0
         Dim diasHaciaAtras As Integer = 0
 
-        objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = InventoryPricing ")
-        objectLibrary.WriteProcessLog("Sincronizando tabla = InventoryPricing", "InventoryPricing.txt")
+        objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = InventoryItemsXRef ")
+        objectLibrary.WriteProcessLog("Sincronizando tabla = InventoryItemsXRef", "InventoryItemsXRef.txt")
 
         'Obtiene el numero de dias hacia atras para colocarlo como parametro del campo LastUpDate, tala Inventory de Access
         diasHaciaAtras = Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual"))
@@ -34,15 +34,15 @@
         Try
             If readerDatos.HasRows Then
                 Do While readerDatos.Read
-                    objetoMySqlInventoryPricing.EliminaSkunoInvetoryPricingMySQL(readerDatos.Item("skuno"))
-                    readerInventoryPrincingAccess = ObtenerAccessInventoryPricing(readerDatos.Item("skuno"))
-                    objetoMySqlInventoryPricing.IngresarNuevoInventoryPricing(readerInventoryPrincingAccess)
+                    objetoMySqlInventoryItemsXRef.EliminaSkunoInventoryItemsXRefMySQL(readerDatos.Item("skuno"))
+                    readerInventoryItemsXRefAccess = ObtenerAccessInventoryItemsXRef(readerDatos.Item("skuno"))
+                    objetoMySqlInventoryItemsXRef.IngresarNuevoInventoryItemXRef(readerInventoryItemsXRefAccess)
                     totalRegistrosNuevos = totalRegistrosNuevos + 1
                 Loop
                 readerDatos.Close()
-                objectLibrary.WriteProcessLog("Inventory Pricing: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "InventoryPricing.txt")
+                objectLibrary.WriteProcessLog("InventoryItemsXRef: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "InventoryItemsXRef.txt")
             Else
-                objectLibrary.WriteProcessLog("Inventory Pricing: No se encontraron registros para sincronizar en la fecha = " & fechaCortaLastUpDate, "InventoryPricing.txt")
+                objectLibrary.WriteProcessLog("InventoryItemsXRef: No se encontraron registros para sincronizar en la fecha = " & fechaCortaLastUpDate, "InventoryItemsXRef.txt")
             End If
         Catch ex As Exception
             objectLibrary.WriteErrorLog(ex.Message)
@@ -53,10 +53,10 @@
         claseSQL = "SELECT * FROM " & nombreTabla & " Where LastUpdate   > #" & fechaCortaLastUpDate & "#"
         ObtenerLastUpdate = objetoAccessHelper.OLDBReader(claseSQL)
     End Function
-    Public Function ObtenerAccessInventoryPricing(skuno As String) As OleDb.OleDbDataReader
+    Public Function ObtenerAccessInventoryItemsXRef(skuno As String) As OleDb.OleDbDataReader
         Dim otroAccessHelper As New AccessSqlHelper
         'Obtiene los registros filtrados por la cantidad de dias hacia adelante segun el parametro del campo LastUpDate 
-        claseSQL = "Select * from [Inventory Pricing] where skuno = " & skuno
-        ObtenerAccessInventoryPricing = otroAccessHelper.OLDBReader(claseSQL)
+        claseSQL = "Select * from [inventory items xref] where skuno = " & skuno
+        ObtenerAccessInventoryItemsXRef = otroAccessHelper.OLDBReader(claseSQL)
     End Function
 End Class

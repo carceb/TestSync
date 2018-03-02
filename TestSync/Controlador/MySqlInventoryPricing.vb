@@ -37,6 +37,8 @@ Public Class MySqlInventoryPricing
                     NewCom = readerInventoryPrincingAccess.Item("NewPrice").ToString.Replace(",", ".")
                     NewMargin = readerInventoryPrincingAccess.Item("NewMargin").ToString.Replace(",", ".")
                     '*************************************************************************************
+
+
                     claseSQL = "INSERT INTO `inventory pricing` " & objetoCMySqlInventoryPrincing.InventoryPricing() & "VALUES " & "(" & readerInventoryPrincingAccess.Item("SkuNo") & "," & readerInventoryPrincingAccess.Item("PriceColumn") & "," & readerInventoryPrincingAccess.Item("PriceQty") & "," &
                                     CurPrice & "," & CurCom & "," & CurMargin & "," &
                                     LastPrice & "," & LastCom & "," & LastMargin & "," &
