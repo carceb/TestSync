@@ -1,24 +1,25 @@
 ﻿Imports MySql.Data.MySqlClient
-Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inventory en MySQL
+Public Class InventoryPricing 'Administra el proceso de sincronizacion de la tabla InventoryPricing en MySQL
     Private claseSQL As String
     Private objetoAccessHelper As New AccessSqlHelper
     Private objetoMySqlHekper As New MySqlHelper
 
-    Private objetoMySqlInventory As New MySqlInventory
+    Private objetoMySqlInventoryPricing As New MySqlInventoryPricing
     Private fechaLastUpDate As DateTime
     Private fechaCortaLastUpDate As String
     Private objectLibrary As New Library
     Private objetoXML As New ManejoXML
     Public Sub New()
     End Sub
-    Public Sub SincronizarInventory()
+    Public Sub SincronizarInventoryPricing ()
         Dim readerDatos As OleDb.OleDbDataReader
+        Dim readerInventoryPrincingAccess As OleDb.OleDbDataReader
         Dim totalRegistrosActualizados As Integer = 0
         Dim totalRegistrosNuevos As Integer = 0
         Dim diasHaciaAtras As Integer = 0
 
-        objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = Inventory")
-        objectLibrary.WriteProcessLog("Sincronizando tabla = Inventory", "Inventory.txt")
+        objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = InventoryPricing ")
+        objectLibrary.WriteProcessLog("Sincronizando tabla = InventoryPricing", "InventoryPricing.txt")
 
         'Obtiene el numero de dias hacia atras para colocarlo como parametro del campo LastUpDate, tala Inventory de Access
         diasHaciaAtras = Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual"))
@@ -26,7 +27,7 @@ Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inve
         fechaLastUpDate = fechaLastUpDate.ToShortDateString
         fechaCortaLastUpDate = fechaLastUpDate.ToString("M/d/yyyy")
         '*************************************************************
-        objectLibrary.WriteProcessLog("Dias hacia atras " & diasHaciaAtras, "Inventory.txt")
+        objectLibrary.WriteProcessLog("Dias hacia atras " & diasHaciaAtras, "InventoryPricing.txt")
 
         'Carga el readerDatos con los registros a sincronizar (ingresar o actualizar) en MySQL
         readerDatos = ObtenerLastUpdate("Inventory")
@@ -34,19 +35,15 @@ Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inve
         Try
             If readerDatos.HasRows Then
                 Do While readerDatos.Read
-                    If EsRegistroExistente(readerDatos.Item("skuno")) Then
-                        objetoMySqlInventory.ActualizarInventory(readerDatos)
-                        totalRegistrosActualizados = totalRegistrosActualizados + 1
-                    Else
-                        objetoMySqlInventory.IngresarNuevoInventory(readerDatos)
-                        totalRegistrosNuevos = totalRegistrosNuevos + 1
-                    End If
+                    objetoMySqlInventoryPricing.EliminaSkunoInvetoryPricingMySQL(readerDatos.Item("skuno"))
+                    readerInventoryPrincingAccess = ObtenerAccessInventoryPricing(readerDatos.Item("skuno"))
+                    objetoMySqlInventoryPricing.IngresarNuevoInventoryPricing(readerInventoryPrincingAccess)
+                    totalRegistrosNuevos = totalRegistrosNuevos + 1
                 Loop
                 readerDatos.Close()
-                objectLibrary.WriteProcessLog("Inventory: Registros EXISTENTES sincronizados para actualización = " & totalRegistrosActualizados, "Inventory.txt")
-                objectLibrary.WriteProcessLog("Inventory: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "Inventory.txt")
+                objectLibrary.WriteProcessLog("Inventory Pricing: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "InventoryPricing.txt")
             Else
-                objectLibrary.WriteProcessLog("Inventory: No se encontraron registros para sincronizar en la fecha = " & fechaCortaLastUpDate, "Inventory.txt")
+                objectLibrary.WriteProcessLog("Inventory Pricing: No se encontraron registros para sincronizar en la fecha = " & fechaCortaLastUpDate, "InventoryPricing.txt")
             End If
         Catch ex As Exception
             objectLibrary.WriteErrorLog(ex.Message)
@@ -57,15 +54,10 @@ Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inve
         claseSQL = "SELECT * FROM " & nombreTabla & " Where LastUpdate   > #" & fechaCortaLastUpDate & "#"
         ObtenerLastUpdate = objetoAccessHelper.OLDBReader(claseSQL)
     End Function
-    Public Function EsRegistroExistente(skuno As String) As Boolean
-        Dim readerRegistro As MySqlDataReader
-        claseSQL = "SELECT * from Inventory where skuno = " & skuno
-        readerRegistro = objetoMySqlHekper.MySqlHelperExecuteReader(claseSQL)
-        If readerRegistro.HasRows Then
-            EsRegistroExistente = True
-        Else
-            EsRegistroExistente = False
-        End If
-        objetoMySqlHekper.strcon.Close()
+    Public Function ObtenerAccessInventoryPricing(skuno As String) As OleDb.OleDbDataReader
+        Dim otroAccessHelper As New AccessSqlHelper
+        'Obtiene los registros filtrados por la cantidad de dias hacia adelante segun el parametro del campo LastUpDate 
+        claseSQL = "Select * from [Inventory Pricing] where skuno = " & skuno
+        ObtenerAccessInventoryPricing = otroAccessHelper.OLDBReader(claseSQL)
     End Function
 End Class

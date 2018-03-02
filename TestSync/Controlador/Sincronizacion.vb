@@ -1,11 +1,11 @@
 ﻿
 Public Class Sincronizacion 'Controla todos los objetos encargados de la sincronizacion en la base de datos
     Private objetoInventory As New Inventory
+    Private objetoInventoryPricing As New InventoryPricing
     Private objectLibrary As New Library
     Public Sub IniciarProcesoSincronizacion()
-        objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = Inventory")
-
-        objetoInventory.SincronizarInventory()
+        ' objetoInventory.SincronizarInventory()
+        objetoInventoryPricing.SincronizarInventoryPricing()
     End Sub
 End Class
 

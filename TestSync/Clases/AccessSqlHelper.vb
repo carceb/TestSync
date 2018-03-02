@@ -17,6 +17,7 @@ Public Class AccessSqlHelper 'Conexion de acceso a datos para OLEDB Access 2003
         Catch ex As Exception
             objectLibrary.WriteErrorLog(ex.Message)
             OLDBReader = Nothing
+            OLDBReader.Close()
         End Try
     End Function
     Public Sub OLDBExecuteNonQuery(sqlNonQuery As String)

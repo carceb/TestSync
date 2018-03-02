@@ -75,11 +75,14 @@
   <ItemGroup>
     <Compile Include="Clases\AccessSqlHelper.vb" />
     <Compile Include="Clases\Inventory.vb" />
+    <Compile Include="Clases\InventoryPricing.vb" />
     <Compile Include="Clases\ManejoXML.vb" />
     <Compile Include="Controlador\MySqlInventory.vb" />
+    <Compile Include="Controlador\MySqlInventoryPricing.vb" />
     <Compile Include="Controlador\Sincronizacion.vb" />
     <Compile Include="Library.vb" />
     <Compile Include="Modelo\CMySqlInventory.vb" />
+    <Compile Include="Modelo\CMySqlInventoryPricing.vb" />
     <Compile Include="Modulos\SyncBDModuloPrincipal.vb" />
     <Compile Include="Clases\MySqlHelper.vb" />
     <Compile Include="Form1.vb">

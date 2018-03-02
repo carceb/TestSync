@@ -17,5 +17,6 @@
         Dim intervaloTimer As Double
         intervaloTimer = TiempoEjecucionSincronizador(objetoXML.ObtenerValorXML("TiempoEjecucionServicioSincronizacion"))
         objetoSincronizacion.IniciarProcesoSincronizacion()
+        MessageBox.Show("Fin")
     End Sub
 End Class
