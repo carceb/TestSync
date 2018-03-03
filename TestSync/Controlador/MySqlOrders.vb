@@ -10,14 +10,6 @@ Public Class MySqlOrders
         Try
             If readerDatos.HasRows Then
 
-                ShipName = readerDatos.Item("ShipName")
-                ShipName = ShipName.Replace("'", "")
-                Dim orid = readerDatos.Item("OrdId")
-                Dim x = IsNulo(readerDatos.Item("ShipAddr"), "Null")
-                x.Replace(vbCrLf, "").Replace(vbCr, "").Replace("&", "")
-
-                Dim z = x
-
                 claseSQL = "INSERT INTO `orders` " & objetoCMySqlOrders.Orders() & " VALUES(" & readerDatos.Item("OrdID") & "," & readerDatos.Item("OrdNo") & "," &
                 IsNuloNum(readerDatos.Item("InvNo"), "Null") & "," & IsNulo(readerDatos.Item("QuoteID"), "Null") & "," & IsNulo(readerDatos.Item("BkOrdID"), "Null") & "," & readerDatos.Item("CustID") & "," & IsNulo(readerDatos.Item("ShipID"), "Null") & "," & IsNulo(ShipName, "Null") & "," &
                 IsNulo(readerDatos.Item("ShipAddr"), "Null") & "," & IsNulo(readerDatos.Item("ShipCity"), "Null") & "," & IsNulo(readerDatos.Item("ShipState"), "Null") & ",'" & readerDatos.Item("ShipZip") & "'," & IsNulo(readerDatos.Item("ContName"), "Null") & "," & IsNulo(readerDatos.Item("ContHomePh"), "Null") & "," &

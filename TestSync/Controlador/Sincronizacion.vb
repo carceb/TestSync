@@ -6,9 +6,9 @@ Public Class Sincronizacion 'Controla todos los objetos encargados de la sincron
     Private objetoOrders As New Orders
     Private objectLibrary As New Library
     Public Sub IniciarProcesoSincronizacion()
-        'objetoInventory.SincronizarInventory()
-        'objetoInventoryPricing.SincronizarInventoryPricing()
-        ' objetoInventoryItemXRef.SincronizarInventoryItemXRef()
+        objetoInventory.SincronizarInventory()
+        objetoInventoryPricing.SincronizarInventoryPricing()
+        objetoInventoryItemXRef.SincronizarInventoryItemXRef()
         objetoOrders.SincronizarOrders()
     End Sub
 End Class
