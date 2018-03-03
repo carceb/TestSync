@@ -16,7 +16,7 @@ Public Class MySqlInventoryPricing
     Dim NewMargin As String
     Public Sub New()
     End Sub
-    Public Sub EliminaSkunoInvetoryPricingMySQL(skuno As String)
+    Public Sub EliminaSkunoInventoryPricingMySQL(skuno As String)
         claseSQL = "Delete from `Inventory Pricing` where skuno = " & skuno
         objetoMysqlHelper.MySqlHelperExecuteNonQuery(claseSQL)
     End Sub
