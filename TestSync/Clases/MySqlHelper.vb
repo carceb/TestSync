@@ -22,8 +22,11 @@ Public Class MySqlHelper 'Conexion de acceso a datos MySQLClient MySQLSever
         Catch ex As Exception
             MySqlHelperExecuteNonQuery = 0
             objectLibrary.WriteErrorLog(ex.Message)
+            strcon.Close()
+            cmd.Dispose()
         End Try
         strcon.Close()
+        cmd.Dispose()
     End Function
     Public Function MySqlHelperExecuteReader(ByVal sqlReader As String) As MySqlDataReader
         Try
