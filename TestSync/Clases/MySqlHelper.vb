@@ -2,8 +2,9 @@
 
 Public Class MySqlHelper 'Conexion de acceso a datos MySQLClient MySQLSever
     Private objectLibrary As New Library
+    Private objetoXML As New ManejoXML
     Public Function strstrconnection() As MySqlConnection
-        Return New MySqlConnection("server=localhost; uid=root;pwd=123456; database=autodatasystem")
+        Return New MySqlConnection(objetoXML.ObtenerValorXML("CadenaConexionMySQL"))
     End Function
     Public strcon As MySqlConnection = strstrconnection()
     Public result As String
@@ -21,7 +22,8 @@ Public Class MySqlHelper 'Conexion de acceso a datos MySQLClient MySQLSever
             End With
         Catch ex As Exception
             MySqlHelperExecuteNonQuery = 0
-            objectLibrary.WriteErrorLog(ex.Message & vbCrLf & " SQL = " & sql & vbCrLf)
+            objectLibrary.WriteErrorLog(ex.Message)
+            objectLibrary.WriteErrorLog("SQL = " & sql)
             strcon.Close()
             cmd.Dispose()
         End Try
@@ -37,7 +39,8 @@ Public Class MySqlHelper 'Conexion de acceso a datos MySQLClient MySQLSever
             End With
             MySqlHelperExecuteReader = cmd.ExecuteReader()
         Catch ex As Exception
-            objectLibrary.WriteErrorLog(ex.Message & vbCrLf & " SQL = " & sqlReader & vbCrLf)
+            objectLibrary.WriteErrorLog(ex.Message)
+            objectLibrary.WriteErrorLog("SQL = " & sqlReader)
             strcon.Close()
             MySqlHelperExecuteReader = Nothing
         End Try

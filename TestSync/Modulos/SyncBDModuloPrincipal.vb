@@ -47,27 +47,31 @@
     End Function
     Public Function TiempoEjecucionSincronizador(valorConfiguracionXML As String) As Double
         Dim resultado As Double = 0
-        Select Case valorConfiguracionXML
-            Case "30 Segundos"
-                resultado = 30000
-            Case "40 Segundos"
-                resultado = 40000
-            Case "50 Segundos"
-                resultado = 50000
-            Case "1 Minuto"
-                resultado = 60000
-            Case "5 Minutos"
-                resultado = 300000
-            Case "10 Minutos"
-                resultado = 600000
-            Case "15 Minutos"
-                resultado = 900000
-            Case "20 Minutos"
-                resultado = 1200000
-            Case "30 Minutos"
-                resultado = 1800000
-        End Select
+        Dim objectLibrary As New Library
+        Try
+            Select Case valorConfiguracionXML
+                Case "30 Segundos"
+                    resultado = 30000
+                Case "40 Segundos"
+                    resultado = 40000
+                Case "50 Segundos"
+                    resultado = 50000
+                Case "1 Minuto"
+                    resultado = 60000
+                Case "5 Minutos"
+                    resultado = 300000
+                Case "10 Minutos"
+                    resultado = 600000
+                Case "15 Minutos"
+                    resultado = 900000
+                Case "20 Minutos"
+                    resultado = 1200000
+                Case "30 Minutos"
+                    resultado = 1800000
+            End Select
+        Catch ex As Exception
+            objectLibrary.WriteErrorLog(ex.Message)
+        End Try
         TiempoEjecucionSincronizador = resultado
     End Function
 End Module
-
