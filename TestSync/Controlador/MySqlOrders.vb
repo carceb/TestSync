@@ -19,9 +19,9 @@ Public Class MySqlOrders
                 IsNuloDate(readerDatos.Item("OrdDate"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("InvDate"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("PrmDate"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("DueDate"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("DiscDate"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("DateSysEnt"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("DateSysCmp"), "Null", "mysql") & "," &
                 IsNulo(readerDatos.Item("AuthSignature"), "Null") & "," & IsNulo(readerDatos.Item("OrdType"), "Null") & "," & IsNulo(readerDatos.Item("OrdCol"), "Null") & "," & IsNulo(readerDatos.Item("OrdOrg"), "Null") & "," & IsNuloDate(readerDatos.Item("JrnPrd"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("JrnDate"), "Null", "mysql") & "," & IsNuloDate(readerDatos.Item("JrnTime"), "Null", "mysql") & "," &
                 readerDatos.Item("JrnCode") & "," & readerDatos.Item("TranCode") & "," & readerDatos.Item("StatusCode") & "," & readerDatos.Item("ShipCode") & "," & readerDatos.Item("TermsCode") & "," & readerDatos.Item("TaxCode") & "," & readerDatos.Item("TaxLoc") & "," &
-                readerDatos.Item("TaxRate") & "," & readerDatos.Item("DiscountRate") & "," & readerDatos.Item("HandlingRate") & "," & readerDatos.Item("LocID") & "," & IsNulo(readerDatos.Item("MgrCode"), "Null") & "," & readerDatos.Item("Com") & "," & readerDatos.Item("Cost") & "," &
-                readerDatos.Item("DiscAmt") & "," & readerDatos.Item("InvAmt") & "," & readerDatos.Item("NonTaxAmt") & "," & readerDatos.Item("TaxableAmt") & "," & readerDatos.Item("Tax") & "," & readerDatos.Item("Discount") & "," & readerDatos.Item("Handling") & "," &
-                readerDatos.Item("Freight") & "," & readerDatos.Item("Restocking") & "," & readerDatos.Item("GL") & "," & readerDatos.Item("Parts") & "," & readerDatos.Item("Labor") & "," & readerDatos.Item("SubLet") & "," & IsNuloDate(readerDatos.Item("ExpDate"), "Null", "mysql") & "," &
+                readerDatos.Item("TaxRate").ToString().Replace(",", ".") & "," & readerDatos.Item("DiscountRate").ToString().Replace(",", ".") & "," & readerDatos.Item("HandlingRate").ToString().Replace(",", ".") & "," & readerDatos.Item("LocID") & "," & IsNulo(readerDatos.Item("MgrCode"), "Null") & "," & readerDatos.Item("Com").ToString().Replace(",", ".") & "," & readerDatos.Item("Cost").ToString().Replace(",", ".") & "," &
+                readerDatos.Item("DiscAmt").ToString().Replace(",", ".") & "," & readerDatos.Item("InvAmt").ToString().Replace(",", ".") & "," & readerDatos.Item("NonTaxAmt").ToString().Replace(",", ".") & "," & readerDatos.Item("TaxableAmt").ToString().Replace(",", ".") & "," & readerDatos.Item("Tax").ToString().Replace(",", ".") & "," & readerDatos.Item("Discount").ToString().Replace(",", ".") & "," & readerDatos.Item("Handling").ToString().Replace(",", ".") & "," &
+                readerDatos.Item("Freight").ToString().Replace(",", ".") & "," & readerDatos.Item("Restocking").ToString().Replace(",", ".") & "," & readerDatos.Item("GL").ToString().Replace(",", ".") & "," & readerDatos.Item("Parts").ToString().Replace(",", ".") & "," & readerDatos.Item("Labor").ToString().Replace(",", ".") & "," & readerDatos.Item("SubLet").ToString().Replace(",", ".") & "," & IsNuloDate(readerDatos.Item("ExpDate"), "Null", "mysql") & "," &
                IsNulo(readerDatos.Item("MachineID"), "Null") & "," & IsNuloDate(readerDatos.Item("LastUpDate"), "Null", "mysql") & "," & readerDatos.Item("NewRecFlag") & "," & readerDatos.Item("PrintQue") & "," & readerDatos.Item("PrintFlag") & "," & IsNulo(readerDatos.Item("StateCode"), "Null") & "," & IsNulo(readerDatos.Item("CntryName"), "Null") & "," &
                 IsNulo(readerDatos.Item("CntryProvince"), "Null") & "," & IsNulo(readerDatos.Item("ShipNotes"), "Null") & "," & readerDatos.Item("WebID") & "," & readerDatos.Item("WebBatchID") & ")"
 
@@ -93,26 +93,26 @@ Public Class MySqlOrders
             " TermsCode = " & IsNuloNum(readerDatos.Item("TermsCode"), "Null") & "," &
             " TaxCode = " & IsNuloNum(readerDatos.Item("TaxCode"), "Null") & "," &
             " TaxLoc = " & IsNuloNum(readerDatos.Item("TaxLoc"), "Null") & "," &
-            " TaxRate = " & IsNuloNum(readerDatos.Item("TaxRate"), "Null") & "," &
-            " DiscountRate = " & IsNuloNum(readerDatos.Item("DiscountRate"), "Null") & "," &
-            " HandlingRate = " & IsNuloNum(readerDatos.Item("HandlingRate"), "Null") & "," &
+            " TaxRate = " & IsNuloNum(readerDatos.Item("TaxRate"), "Null").ToString().Replace(",", ".") & "," &
+            " DiscountRate = " & IsNuloNum(readerDatos.Item("DiscountRate"), "Null").ToString().Replace(",", ".") & "," &
+            " HandlingRate = " & IsNuloNum(readerDatos.Item("HandlingRate"), "Null").ToString().Replace(",", ".") & "," &
             " LocID = " & IsNuloNum(readerDatos.Item("LocID"), "Null") & "," &
             " MgrCode = " & IsNulo(readerDatos.Item("MgrCode"), "Null") & "," &
-            " Com = " & IsNuloNum(readerDatos.Item("Com"), "Null") & "," &
-            " Cost = " & IsNuloNum(readerDatos.Item("Cost"), "Null") & "," &
-            " DiscAmt = " & IsNuloNum(readerDatos.Item("DiscAmt"), "Null") & "," &
-            " InvAmt = " & IsNuloNum(readerDatos.Item("InvAmt"), "Null") & "," &
-            " NonTaxAmt = " & IsNuloNum(readerDatos.Item("NonTaxAmt"), "Null") & "," &
-            " TaxableAmt = " & IsNuloNum(readerDatos.Item("TaxableAmt"), "Null") & "," &
-            " Tax = " & IsNuloNum(readerDatos.Item("Tax"), "Null") & "," &
-            " Discount = " & IsNuloNum(readerDatos.Item("Discount"), "Null") & "," &
-            " Handling = " & IsNuloNum(readerDatos.Item("Handling"), "Null") & "," &
-            " Freight = " & IsNuloNum(readerDatos.Item("Freight"), "Null") & "," &
-            " Restocking = " & IsNuloNum(readerDatos.Item("Restocking"), "Null") & "," &
-            " GL = " & IsNuloNum(readerDatos.Item("GL"), "Null") & "," &
-            " Parts = " & IsNuloNum(readerDatos.Item("Parts"), "Null") & "," &
-            " Labor = " & IsNuloNum(readerDatos.Item("Labor"), "Null") & "," &
-            " SubLet = " & IsNuloNum(readerDatos.Item("SubLet"), "Null") & "," &
+            " Com = " & IsNuloNum(readerDatos.Item("Com"), "Null").ToString().Replace(",", ".") & "," &
+            " Cost = " & IsNuloNum(readerDatos.Item("Cost"), "Null").ToString().Replace(",", ".") & "," &
+            " DiscAmt = " & IsNuloNum(readerDatos.Item("DiscAmt"), "Null").ToString().Replace(",", ".") & "," &
+            " InvAmt = " & IsNuloNum(readerDatos.Item("InvAmt"), "Null").ToString().Replace(",", ".") & "," &
+            " NonTaxAmt = " & IsNuloNum(readerDatos.Item("NonTaxAmt"), "Null").ToString().Replace(",", ".") & "," &
+            " TaxableAmt = " & IsNuloNum(readerDatos.Item("TaxableAmt"), "Null").ToString().Replace(",", ".") & "," &
+            " Tax = " & IsNuloNum(readerDatos.Item("Tax"), "Null").ToString().Replace(",", ".") & "," &
+            " Discount = " & IsNuloNum(readerDatos.Item("Discount"), "Null").ToString().Replace(",", ".") & "," &
+            " Handling = " & IsNuloNum(readerDatos.Item("Handling"), "Null").ToString().Replace(",", ".") & "," &
+            " Freight = " & IsNuloNum(readerDatos.Item("Freight"), "Null").ToString().Replace(",", ".") & "," &
+            " Restocking = " & IsNuloNum(readerDatos.Item("Restocking"), "Null").ToString().Replace(",", ".") & "," &
+            " GL = " & IsNuloNum(readerDatos.Item("GL"), "Null").ToString().Replace(",", ".") & "," &
+            " Parts = " & IsNuloNum(readerDatos.Item("Parts"), "Null").ToString().Replace(",", ".") & "," &
+            " Labor = " & IsNuloNum(readerDatos.Item("Labor"), "Null").ToString().Replace(",", ".") & "," &
+            " SubLet = " & IsNuloNum(readerDatos.Item("SubLet"), "Null").ToString().Replace(",", ".") & "," &
             " ExpDate = " & IsNuloDate(readerDatos.Item("ExpDate"), "Null", "mysql") & "," &
             " MachineID = '" & readerDatos.Item("MachineID") & "'," &
             " LastUpDate = " & IsNuloDate(readerDatos.Item("LastUpDate"), "Null", "mysql") & "," &

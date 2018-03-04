@@ -34,6 +34,7 @@
                 readerDatos.Close()
                 objetoAccessHelper.cnnOLEDB.Close()
                 objectLibrary.WriteProcessLog("InventoryItemsXRef: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "InventoryItemsXRef.txt")
+                objectLibrary.WriteErrorLog("InventoryItemsXRef: Finalizó correctamente evento de sincronización")
             Else
                 objectLibrary.WriteProcessLog("InventoryItemsXRef: No se encontraron registros para sincronizar", "InventoryItemsXRef.txt")
             End If

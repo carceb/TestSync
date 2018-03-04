@@ -34,6 +34,7 @@
                 readerDatos.Close()
                 objetoAccessHelper.cnnOLEDB.Close()
                 objectLibrary.WriteProcessLog("Inventory Pricing: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "InventoryPricing.txt")
+                objectLibrary.WriteErrorLog("Inventory Pricing: Finalizó correctamente evento de sincronización")
             Else
                 objectLibrary.WriteProcessLog("Inventory Pricing: No se encontraron registros para sincronizar", "InventoryPricing.txt")
             End If

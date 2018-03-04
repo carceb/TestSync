@@ -35,6 +35,7 @@ Public Class Orders
                 objetoAccessHelper.cnnOLEDB.Close()
                 objectLibrary.WriteProcessLog("Orders: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "Orders.txt")
                 objectLibrary.WriteProcessLog("Orders: Registros EXISTENTES sincronizados para actualización = " & totalRegistrosActualizados, "Orders.txt")
+                objectLibrary.WriteErrorLog("Orders: Finalizó correctamente evento de sincronización")
             Else
                 objectLibrary.WriteProcessLog("Orders: No se encontraron registros para sincronizar", "Orders.txt")
             End If

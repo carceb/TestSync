@@ -55,7 +55,13 @@
             Case "50 Segundos"
                 resultado = 50000
             Case "1 Minuto"
+                resultado = 60000
+            Case "5 Minutos"
+                resultado = 300000
+            Case "10 Minutos"
                 resultado = 600000
+            Case "15 Minutos"
+                resultado = 900000
             Case "20 Minutos"
                 resultado = 1200000
             Case "30 Minutos"

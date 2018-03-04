@@ -39,6 +39,7 @@ Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inve
                 objetoAccessHelper.cnnOLEDB.Close()
                 objectLibrary.WriteProcessLog("Inventory: Registros EXISTENTES sincronizados para actualización = " & totalRegistrosActualizados, "Inventory.txt")
                 objectLibrary.WriteProcessLog("Inventory: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "Inventory.txt")
+                objectLibrary.WriteErrorLog("Inventory: Finalizó correctamente evento de sincronización")
             Else
                 objectLibrary.WriteProcessLog("Inventory: No se encontraron registros para sincronizar en la fecha = " & fechaCortaLastUpDate, "Inventory.txt")
             End If
