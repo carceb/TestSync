@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Clases\AccessSqlHelper.vb" />
     <Compile Include="Clases\CustomersBill.vb" />
+    <Compile Include="Clases\CustomersBillPrsn.vb" />
     <Compile Include="Clases\Inventory.vb" />
     <Compile Include="Clases\InventoryDTS.vb" />
     <Compile Include="Clases\InventoryItemXRef.vb" />
@@ -83,6 +84,7 @@
     <Compile Include="Clases\Orders.vb" />
     <Compile Include="Clases\OrdersDetail.vb" />
     <Compile Include="Controlador\MySqlCustomersBill.vb" />
+    <Compile Include="Controlador\MySqlCustomersBillPrsn.vb" />
     <Compile Include="Controlador\MySqlInventory.vb" />
     <Compile Include="Controlador\MySqlInventoryDTS.vb" />
     <Compile Include="Controlador\MySqlInventoryItemsXRef.vb" />
@@ -92,6 +94,7 @@
     <Compile Include="Controlador\Sincronizacion.vb" />
     <Compile Include="Library.vb" />
     <Compile Include="Modelo\CMySqlCustomersBill.vb" />
+    <Compile Include="Modelo\CMySqlCustomersBillPrsn.vb" />
     <Compile Include="Modelo\CMySqlInventory.vb" />
     <Compile Include="Modelo\CMySqlInventoryItemXRef.vb" />
     <Compile Include="Modelo\CMySqlInventoryPricing.vb" />

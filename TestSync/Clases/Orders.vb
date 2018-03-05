@@ -56,6 +56,12 @@ Public Class Orders
                 reader = Nothing
                 otroMySqlsHelper.strcon.Close()
                 otroMySqlsHelper.cmd.Dispose()
+            Else
+                resultado = False
+                reader.Close()
+                reader = Nothing
+                otroMySqlsHelper.strcon.Close()
+                otroMySqlsHelper.cmd.Dispose()
             End If
         Catch ex As Exception
             objectLibrary.WriteErrorLog(ex.Message)

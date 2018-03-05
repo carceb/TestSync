@@ -1,55 +1,55 @@
 ﻿Imports MySql.Data.MySqlClient
-Public Class CustomersBill
+Public Class CustomersBillPrsn
     Private claseSQL As String
     Private objetoAccessHelper As New AccessSqlHelper
-    Private objetoVCustomersBill As New MySqlCustomersBill
+    Private objetoCustomersBillPrsn As New MySqlCustomersBillPrsn
     Private objectLibrary As New Library
     Public Sub New()
     End Sub
-    Public Sub SincronizarCustomersBill()
+    Public Sub SincronizarCustomersBillPrsn()
         Dim readerDatos As OleDb.OleDbDataReader
         Dim totalRegistrosActualizados As Integer = 0
         Dim totalRegistrosNuevos As Integer = 0
 
-        objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = CustomersBill")
-        objectLibrary.WriteProcessLog("Sincronizando tabla = CustomersBill", "CustomersBill.txt")
+        objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = CustomersBillPrsn")
+        objectLibrary.WriteProcessLog("Sincronizando tabla = CustomersBillPrsn", "CustomersBillPrsn.txt")
 
         Try
             'Carga el readerDatos con los registros a sincronizar (ingresar o actualizar) en MySQL
-            readerDatos = ObtenerCustomersBillAccess()
+            readerDatos = ObtenerCustomersBillPrsnAccess()
             '************************************************************
             If readerDatos.HasRows Then
                 Do While readerDatos.Read
-                    If Not EsCustomersBillIDExistenteMySql(readerDatos.Item("custid")) Then
-                        objetoVCustomersBill.IngresarCustomersBill(readerDatos)
+                    If Not EsCustomersBillPrsnIDExistenteMySql(readerDatos.Item("PrsnID")) Then
+                        objetoCustomersBillPrsn.IngresarCustomersBillPrsn(readerDatos)
                         totalRegistrosNuevos = totalRegistrosNuevos + 1
                     Else
-                        objetoVCustomersBill.ActualizarCustomersBill(readerDatos)
+                        objetoCustomersBillPrsn.ActualizarCustomersBillPrsn(readerDatos)
                         totalRegistrosActualizados = totalRegistrosActualizados + 1
                     End If
                 Loop
                 readerDatos.Close()
                 objetoAccessHelper.cnnOLEDB.Close()
-                objectLibrary.WriteProcessLog("CustomersBill: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "CustomersBill.txt")
-                objectLibrary.WriteProcessLog("CustomersBill: Registros EXISTENTES sincronizados para actualización = " & totalRegistrosActualizados, "CustomersBill.txt")
-                objectLibrary.WriteErrorLog("CustomersBill: Finalizó correctamente evento de sincronización")
+                objectLibrary.WriteProcessLog("CustomersBillPrsn: Registros NUEVOS sincronizados para actualización = " & totalRegistrosNuevos, "CustomersBillPrsn.txt")
+                objectLibrary.WriteProcessLog("CustomersBillPrsn: Registros EXISTENTES sincronizados para actualización = " & totalRegistrosActualizados, "CustomersBillPrsn.txt")
+                objectLibrary.WriteErrorLog("CustomersBillPrsn: Finalizó correctamente evento de sincronización")
             Else
-                objectLibrary.WriteProcessLog("CustomersBill: No se encontraron registros para sincronizar", "CustomersBill.txt")
+                objectLibrary.WriteProcessLog("CustomersBillPrsn: No se encontraron registros para sincronizar", "CustomersBillPrsn.txt")
             End If
         Catch ex As Exception
             objectLibrary.WriteErrorLog(ex.Message)
         End Try
     End Sub
-    Private Function ObtenerCustomersBillAccess() As OleDb.OleDbDataReader
-        claseSQL = "Select * from [Customers Bill] order by custid"
-        ObtenerCustomersBillAccess = objetoAccessHelper.OLDBReader(claseSQL)
+    Private Function ObtenerCustomersBillPrsnAccess() As OleDb.OleDbDataReader
+        claseSQL = "Select * from [Customers BillPrsn] order By CustID"
+        ObtenerCustomersBillPrsnAccess = objetoAccessHelper.OLDBReader(claseSQL)
     End Function
-    Private Function EsCustomersBillIDExistenteMySql(customerID As String) As Boolean
+    Private Function EsCustomersBillPrsnIDExistenteMySql(prsnID As String) As Boolean
         Dim resultado As Boolean = False
         Dim otroMySqlsHelper As New MySqlHelper
         Dim reader As MySqlDataReader
         Try
-            claseSQL = "SELECT * from `Customers Bill` where custid = " & customerID
+            claseSQL = "SELECT * from `Customers BillPrsn` where PrsnID = " & prsnID
             reader = otroMySqlsHelper.MySqlHelperExecuteReader(claseSQL)
             If reader.HasRows Then
                 resultado = True
@@ -57,8 +57,9 @@ Public Class CustomersBill
                 reader = Nothing
                 otroMySqlsHelper.strcon.Close()
                 otroMySqlsHelper.cmd.Dispose()
+                otroMySqlsHelper = Nothing
             Else
-                resultado = True
+                resultado = False
                 reader.Close()
                 reader = Nothing
                 otroMySqlsHelper.strcon.Close()
@@ -67,6 +68,6 @@ Public Class CustomersBill
         Catch ex As Exception
             objectLibrary.WriteErrorLog(ex.Message)
         End Try
-        EsCustomersBillIDExistenteMySql = resultado
+        EsCustomersBillPrsnIDExistenteMySql = resultado
     End Function
 End Class
