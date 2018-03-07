@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\AccessSqlHelper.vb" />
+    <Compile Include="Clases\CodesCat.vb" />
     <Compile Include="Clases\CustomersBill.vb" />
     <Compile Include="Clases\CustomersBillPrsn.vb" />
     <Compile Include="Clases\Inventory.vb" />
@@ -83,6 +84,9 @@
     <Compile Include="Clases\ManejoXML.vb" />
     <Compile Include="Clases\Orders.vb" />
     <Compile Include="Clases\OrdersDetail.vb" />
+    <Compile Include="Clases\CodesCatSub.vb" />
+    <Compile Include="Controlador\MySqlCodesCat.vb" />
+    <Compile Include="Controlador\MySqlCodesCatSub.vb" />
     <Compile Include="Controlador\MySqlCustomersBill.vb" />
     <Compile Include="Controlador\MySqlCustomersBillPrsn.vb" />
     <Compile Include="Controlador\MySqlInventory.vb" />
