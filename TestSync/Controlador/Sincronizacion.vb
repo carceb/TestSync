@@ -11,18 +11,19 @@ Public Class Sincronizacion 'Controla todos los objetos encargados de la sincron
         Dim objetoCustomersBillPrsn As New CustomersBillPrsn
         Dim objectLibrary As New Library
 
-        'objetoInventory.SincronizarInventory()
-        'objetoInventoryPricing.SincronizarInventoryPricing()
-        'objetoInventoryItemXRef.SincronizarInventoryItemXRef()
-        'objetoOrders.SincronizarOrders()
-        'objetoOrdersDetail.SincronizarOrdersDatail()
-        'objetoCustomersBill.SincronizarCustomersBill()
+        objetoInventory.SincronizarInventory()
+        objetoInventoryPricing.SincronizarInventoryPricing()
+        objetoInventoryItemXRef.SincronizarInventoryItemXRef()
+        objetoOrders.SincronizarOrders()
+        objetoOrdersDetail.SincronizarOrdersDatail()
 
-        objetoCustomersBillPrsn.SincronizarCustomersBillPrsn()
-
-        'Los campos que estan el codigo guia no son los de la tabla se debe investigar como es este proceso
+        '*******************************************************
+        'Se debe revisar como hacer este proceso
         'objetoInventoryDTS.SincronizarInventoryDTS()
+        '*******************************************************
 
+        objetoCustomersBill.SincronizarCustomersBill()
+        objetoCustomersBillPrsn.SincronizarCustomersBillPrsn()
     End Sub
 End Class
 

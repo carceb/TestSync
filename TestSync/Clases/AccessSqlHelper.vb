@@ -4,7 +4,7 @@ Public Class AccessSqlHelper 'Conexion de acceso a datos para OLEDB Access 2003
     Private objetoXML As New ManejoXML
     Public cnnOLEDB As New OleDbConnection
     Private cmdOLEDB As New OleDbCommand
-    Private connectionString = objetoXML.ObtenerValorXML("RutaBDAccess2003")
+    Private connectionString = objetoXML.ObtenerValorXML("RutaBDAccess2003", "Configuracion.xml")
     Private objectLibrary As New Library
 
     Public Function OLDBReader(sqlReader As String) As OleDbDataReader

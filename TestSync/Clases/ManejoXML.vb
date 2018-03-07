@@ -2,12 +2,12 @@
 Public Class ManejoXML
     Public Sub New()
     End Sub
-    Public Function ObtenerValorXML(nombreNodo As String) As String
+    Public Function ObtenerValorXML(nombreNodo As String, nombreArchivoXML As String) As String
         Dim objectLibrary As New Library
         Dim resultadoValorNodo As String = ""
         Dim confFilePath As String
         Try
-            confFilePath = My.Application.Info.DirectoryPath & "\Configuracion.xml"
+            confFilePath = My.Application.Info.DirectoryPath & "\" & nombreArchivoXML
             If (IO.File.Exists(confFilePath)) Then
                 Dim document As XmlReader = New XmlTextReader(confFilePath)
                 While (document.Read())
@@ -25,5 +25,33 @@ Public Class ManejoXML
             objectLibrary.WriteErrorLog(ex.Message)
             ObtenerValorXML = ""
         End Try
+    End Function
+    Public Function ActualizarSBDPXML() As Boolean
+        Dim resultado As Boolean = False
+        Dim objetoLectorXML As New ManejoXML
+        Dim numeroCompilacion As Integer
+        Try
+            numeroCompilacion = Convert.ToInt32(objetoLectorXML.ObtenerValorXML("Compilaciones", "SBDP.xml"))
+            Dim settings As New XmlWriterSettings()
+            settings.Indent = True
+            Dim XmlWrt As XmlWriter = XmlWriter.Create(My.Application.Info.DirectoryPath & "\SBDP.xml", settings)
+            With XmlWrt
+                .WriteStartDocument()
+                .WriteComment("XML Database.")
+                .WriteStartElement("Data")
+                .WriteStartElement("Configuracion")
+                numeroCompilacion = numeroCompilacion + 1
+                .WriteStartElement("Compilaciones")
+                .WriteString(numeroCompilacion)
+
+                .WriteEndElement()
+                .WriteEndDocument()
+                .Close()
+                resultado = True
+            End With
+        Catch ex As Exception
+            resultado = False
+        End Try
+        ActualizarSBDPXML = resultado
     End Function
 End Class

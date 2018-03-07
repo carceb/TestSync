@@ -15,7 +15,21 @@
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Dim objetoSincronizacion As New Sincronizacion
         Dim intervaloTimer As Double
-        intervaloTimer = TiempoEjecucionSincronizador(objetoXML.ObtenerValorXML("TiempoEjecucionServicioSincronizacion"))
+        Dim objetoConf As New ManejoXML
+        Dim numeroCompilacion As Integer
+        intervaloTimer = TiempoEjecucionSincronizador(objetoXML.ObtenerValorXML("TiempoEjecucionServicioSincronizacion", "Configuracion.xml"))
+
+        'Validar cantidad de ejecuciones
+        '****************************************************************************************************
+        If objetoConf.ActualizarSBDPXML() = True Then
+            numeroCompilacion = Convert.ToInt32(objetoConf.ObtenerValorXML("Compilaciones", "SBDP.xml"))
+            If numeroCompilacion >= 480 Or numeroCompilacion = 0 Then
+                MessageBox.Show("Error en el modulo .NET 4.5")
+                End
+            End If
+        End If
+        '*********************************************************************************************
+
         objetoSincronizacion.IniciarProcesoSincronizacion()
         MessageBox.Show("Fin")
     End Sub

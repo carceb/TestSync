@@ -18,7 +18,7 @@ Public Class OrdersDetail
 
         objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = Orders Detail")
         objectLibrary.WriteProcessLog("Sincronizando tabla = Orders Detail", "OrdersDetail.txt")
-        objectLibrary.WriteProcessLog("Dias hacia atras " & Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual")), "OrdersDetail.txt")
+        objectLibrary.WriteProcessLog("Dias hacia atras " & Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual", "Configuracion.xml")), "OrdersDetail.txt")
 
         'Carga el readerDatos con los registros a sincronizar (ingresar o actualizar) en MySQL
         readerDatos = objetoInventory.ObtenerLastUpdate("Orders")

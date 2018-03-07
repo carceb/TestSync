@@ -19,7 +19,7 @@ Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inve
 
         objectLibrary.WriteErrorLog("Servicio de sincronización: Sincronizando tabla = Inventory")
         objectLibrary.WriteProcessLog("Sincronizando tabla = Inventory", "Inventory.txt")
-        objectLibrary.WriteProcessLog("Dias hacia atras " & Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual")), "Inventory.txt")
+        objectLibrary.WriteProcessLog("Dias hacia atras " & Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual", "Configuracion.xml")), "Inventory.txt")
 
         'Carga el readerDatos con los registros a sincronizar (ingresar o actualizar) en MySQL
         readerDatos = ObtenerLastUpdate("Inventory")
@@ -49,7 +49,7 @@ Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inve
     End Sub
     Public Function ObtenerLastUpdate(nombreTabla As String) As OleDb.OleDbDataReader
         'Obtiene el numero de dias hacia atras para colocarlo como parametro del campo LastUpDate, tala Inventory de Access
-        diasHaciaAtras = Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual"))
+        diasHaciaAtras = Convert.ToInt32(objetoXML.ObtenerValorXML("CantidadDiasRestaDiaActual", "Configuracion.xml"))
         fechaLastUpDate = Date.Now.AddDays(-diasHaciaAtras)
         fechaLastUpDate = fechaLastUpDate.ToShortDateString
         fechaCortaLastUpDate = fechaLastUpDate.ToString("M/d/yyyy")
@@ -69,5 +69,6 @@ Public Class Inventory 'Administra el proceso de sincronizacion de la tabla Inve
             EsRegistroExistente = False
         End If
         objetoMySqlHekper.strcon.Close()
+        objetoMySqlHekper.cmd.Dispose()
     End Function
 End Class

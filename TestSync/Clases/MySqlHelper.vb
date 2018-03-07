@@ -4,7 +4,7 @@ Public Class MySqlHelper 'Conexion de acceso a datos MySQLClient MySQLSever
     Private objectLibrary As New Library
     Private objetoXML As New ManejoXML
     Public Function strstrconnection() As MySqlConnection
-        Return New MySqlConnection(objetoXML.ObtenerValorXML("CadenaConexionMySQL"))
+        Return New MySqlConnection(objetoXML.ObtenerValorXML("CadenaConexionMySQL", "Configuracion.xml"))
     End Function
     Public strcon As MySqlConnection = strstrconnection()
     Public result As String

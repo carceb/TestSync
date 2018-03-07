@@ -5,7 +5,6 @@ Public Class MySqlCustomersBill
     Private objetoCMySqlCustomersBill As New CMySqlCustomersBill
     Private objectLibrary As New Library
     Public Sub IngresarCustomersBill(ByVal readerDatos As OleDbDataReader)
-
         Try
             If readerDatos.HasRows Then
                 claseSQL = "INSERT INTO `Customers Bill` " & objetoCMySqlCustomersBill.CustomersBill() & " values(" & readerDatos.Item("CustID") & "," & readerDatos.Item("custno") & ",'" & readerDatos.Item("BillName") & "')"
@@ -44,7 +43,7 @@ Public Class MySqlCustomersBill
                     ", ResaleNo = '" & readerDatos.Item("ResaleNo") & "'" &
                     ", TaxCode = " & readerDatos.Item("TaxCode") & "" &
                     ", TermsCode = " & readerDatos.Item("TermsCode") & "" &
-                     ", CrLimit = " & IsNulo(readerDatos.Item("CrLimit"), "0") & "" &
+                     ", CrLimit = " & IsNulo(readerDatos.Item("CrLimit"), "0").ToString().Replace(",", ".") & "" &
                     ", CrHold = " & readerDatos.Item("CrHold") & "" &
                     ", CrMsg = '" & readerDatos.Item("CrMsg") & "'" &
                      ", PO = " & readerDatos.Item("PO") & "" &
